@@ -151,6 +151,10 @@ To read more on Brace Expansion, go to the following resource:
 
 mkdir $HOME/{1123,1134,1145,1156}
 
+or
+
+mkdir $HOME 11{23,34,45,56}
+
 
 Q2:
 
@@ -191,6 +195,10 @@ Be aware that if you use Pattern Matching to locate the files you may have unint
 
 find $HOME/1123 -name \*.txt
 
+or
+
+find $HOME/1123/ -type f *.txt
+
 Q4:
 
 
@@ -205,7 +213,7 @@ find $HOME/1123/ -name \*.txt | grep -v ~.txt
 
 or
 
-find $HOME/1123/ -name \*.txt | grep -v "~"
+find $HOME/1123/ -name "*.txt" | grep -v "~"
 ```
 ## kill / pkill 
 ```
