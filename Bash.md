@@ -6,6 +6,8 @@
 
 ## -printf URL help: https://phoenixnap.com/kb/bash-printf
 
+## Single vs Double Brackets help URL: https://www.baeldung.com/linux/bash-single-vs-double-brackets
+
 ## Bash Scripts: nano <name>.sh
 
 ## Linux Commmands:
