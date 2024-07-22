@@ -207,7 +207,7 @@ or
 
 find $HOME/1123/ -name \*.txt | grep -v "~"
 ```
-##kill / pkill 
+## kill / pkill 
 ```
  ps -u Jim 		IDs processes use by user: Jim
  ps --forest 		show complete process tree with parent child relationships
@@ -217,5 +217,44 @@ find $HOME/1123/ -name \*.txt | grep -v "~"
  			u == users running the proc
  			x == CMDs that ran the procs.
 ```
+
+## Cut
+```
+cut line parts from specified files or piped data and print the result to standard output
+
+
+
+cut -d: -f1         displays only portion of line before 1st instance of delimiter ``:''
+cut -d: -f1-        " and any following strings up to the very next instance ``:''
+cut -d: -f1- -s     " " but don’t print any lines not containing delimiter ``:''
+cut -f3             displays only the 3rd field delimited by space
+cut -f2-4           displays only fields 2 through 4 delimited by space
+cut -c3-10          displays only the 3rd through 10th characters of each line
+
+-d: = dilimeter 
+
+NOTE: Tabs are counted as single spaces on a line; both are counted as single characters
+
+EX:: cat fakepasswd.txt | cut -d: -f1 
+EX:: cat fakepasswd.txt | cut -d: -f1 -s
+    -s \= at the end is for string
+```
+
+## Command Chaining Operators:
+```
+&   --Sends process to background (so we can run multiple process parallel)
+;   --Run multiple commands in one run, sequentially.
+ \  --To type larger command in multiple lines
+&&  --Logical AND operator
+||  --Logical OR operator
+!   --NOT operator
+|   -- PIPE operator
+{}  --Command combination operator.
+    [ -f 99.txt ] || { echo " does not exist"; touch 99.txt; }
+()  --Precedence operator = looks at it first
+>   creates a new file or overwrites it if one exsists
+>>  appends a file or creates if it does not exsists
+```
+
 
 
