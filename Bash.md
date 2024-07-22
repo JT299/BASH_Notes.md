@@ -8,9 +8,11 @@
 
 ## Single vs Double Brackets help URL: https://www.baeldung.com/linux/bash-single-vs-double-brackets
 
+## URL: http://10.50.26.116
+
 ## Bash Scripts: nano <name>.sh
 
-## Linux Commmands:
+## Linux Commmands: DAY 1
 ```
 man = 'looks at man pages'
 
@@ -116,10 +118,5 @@ EX: cat fakepasswd.txt | grep -v /bin/bash
     === displays lines that DO NOT contain /bin/bash 
 
 
-
-  
-
-
 ```
 
-##
