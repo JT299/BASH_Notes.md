@@ -4,6 +4,8 @@
 
 ## Extra https://linuxhandbook.com/find-exec-command/
 
+## -printf URL help: https://phoenixnap.com/kb/bash-printf
+
 ## Bash Scripts: nano <name>.sh
 
 ## Linux Commmands:
@@ -61,6 +63,17 @@ find = find
 
   $HOME -mtime 0 = home directory
   /etc/ -mtime 0 = looks at home directory
+
+**********            *******
+find / -perm /4000 -uid 0 -ls 2>/dev/null
+  -perm = finds permissions
+  2>/dev/null = error statments go to the to null
+
+find /var/log -iname *.log 2>/dev/null -printf "%i %f\n"
+  -printf = converts, formates and writes its argument parameters to standard output.
+
+find / -inum 38 2>/dev/null
+     = finds any inode of 38
 ```
 
 ## find [path] [arguments] -exec [command] {} \; 
@@ -70,7 +83,35 @@ find = find
     \; says that for each found result, the [command] is executed. You need to escape the ; here and hence \;.
 ```
 
-##sudo !! = runs last command in root
+## sudo !! = runs last command in root
+
+## GREP
+```
+Used for searching and matching text patterns in files contained in the regular expressions.
+
+grep -c                 counts number of lines that match
+grep -r ; grep -R       recursive
+grep -f                 files only
+grep -E                 regular expressions (GNU)
+    or egrep 
+grep -o                 displays ONLY matches of regex / not whole line
+grep -i                 case-insensitive match
+grep -l                 displays only file name (full path) of matching regex
+grep -C#                in context of match (# of lines before and after)
+grep -A#                displays # of lines after matching regex
+grep -B#                displays # of line before matching regex
+grep -P                 uses Pearl regular expressions (non-GNU)
+grep ""                 shell quoting (BASH interpretable)
+grep ''                 shell quoting (NOT BASH interpretable)
+grep -v                 invert match
+grep -n                 print line number with output lines
+
+EX: cat fakepasswd.txt | grep /bin/bash == displays lines that contain /bin/bash in fakepasswd.txt
+
+EX: egrep "student|root|bob" fakepasswd.txt = display anylines that contain "student" "root" or "bob"
+
+EX: cat fakepasswd.txt | grep -v /bin/bash
+    === displays lines that DO NOT contain /bin/bash 
 
 
 
