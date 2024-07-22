@@ -23,7 +23,13 @@ mkdir -p  = makes a parent directory
 
 umask = checks permissions
 
-chmod = changes permission on a file
+chmod = changes permission on a file ps -u Jim 		IDs processes use by user: Jim
+ ps --forest 		show complete process tree with parent child relationships
+ ps -u Jim –-forest 	show for user: Jim only
+ ps u U Jim –-forest 	owned by user: Jim
+ ps aux 		a == shows all procs running on system
+ 			u == users running the proc
+ 			x == CMDs that ran the procs.
 
 rm = removes a file
   -rf = forces to remove
@@ -116,7 +122,100 @@ EX: egrep "student|root|bob" fakepasswd.txt = display anylines that contain "stu
 
 EX: cat fakepasswd.txt | grep -v /bin/bash
     === displays lines that DO NOT contain /bin/bash 
-
-
 ```
+## Brace Expansion
+```
+mkdir cosc11{23,45,67}
+     == creates directories cosc23, cosc45, cosc67
+```
+
+## CLASS PRACTICE Brace Expansions:
+```
+1:
+Brace expansion is a mechanism by which arbitrary strings may be generated, for commands that will take multiple arguements. For the below examples, the first example is equivalent to the second command.
+
+$ mkdir /var/log/{auth,syslog,dmesg}_log
+
+Results in
+
+$ mkdir /var/log/auth_log /var/log/syslog_log /var/log/dmesg_log
+
+Activity: Using Brace-Expansion, create the following directories within the $HOME directory:
+
+    1123
+    1134
+    1145
+    1156
+
+To read more on Brace Expansion, go to the following resource:
+
+mkdir $HOME/{1123,1134,1145,1156}
+
+
+Q2:
+
+
+As we learned, the following example would create five files with one command.
+
+touch file1.txt file2.txt file3.txt passwd.txt shadow.txt
+
+But, with Brace Expansion it can be shortened to the following.
+
+touch file{1..3}.txt passwd.txt shadow.txt
+
+Activity:
+
+Use Brace-Expansion to create the following files within the $HOME/1123 directory. You may need to create the $HOME/1123 directory. Make the following files, but utilze Brace Expansion to make all nine files with one touch command.
+
+Files to create:
+
+    1.txt
+    2.txt
+    3.txt
+    4.txt
+    5.txt
+    6~.txt
+    7~.txt
+    8~.txt
+    9~.txt
+
+mkdir $HOME/1123
+touch $HOME/1123/{1,2,3,4,5,6~,7~,8~,9~}.txt
+
+Q3:
+Activity:
+
+Using the find command, list all files in $HOME/1123 that end in .txt.
+
+Be aware that if you use Pattern Matching to locate the files you may have unintended results based on if you use quotes around the pattern or not. If you do not quote the pattern, the Bash shell interprets the pattern. If you quote the pattern, it is passed to the command for it to interpret. You can have a properly functioning command, yet unintended output, based on which of these two gets to interpret the pattern.
+
+find $HOME/1123 -name \*.txt
+
+Q4:
+
+
+Challenge Activity:
+
+List all files in $HOME/1123 that end in .txt. Omit the files containing a tilde (~) character.
+
+While this activity can be accomplished with only find, it can also be combined with grep as well.
+
+
+find $HOME/1123/ -name \*.txt | grep -v ~.txt
+
+or
+
+find $HOME/1123/ -name \*.txt | grep -v "~"
+```
+##kill / pkill 
+```
+ ps -u Jim 		IDs processes use by user: Jim
+ ps --forest 		show complete process tree with parent child relationships
+ ps -u Jim –-forest 	show for user: Jim only
+ ps u U Jim –-forest 	owned by user: Jim
+ ps aux 		a == shows all procs running on system
+ 			u == users running the proc
+ 			x == CMDs that ran the procs.
+```
+
 
