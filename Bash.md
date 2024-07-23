@@ -40,7 +40,7 @@ ls = long listing of directory
   -lisa = 
   -1 = -'one' = one per line
 
-pwd = present working directory / see where you are at
+pwd = present working directory / see where you are atls -l $HOME/CUT | cut -d: -f2 | cut -d' ' -f2 | cut -d. -f1-2 -s > $HOME/CUT/names
 
 cp <source> <dest> = copys a file
 
@@ -342,3 +342,7 @@ or
 
 ls -l | cut -d' ' -f9 -s | cut -d. -f1-2 -s
 ```
+
+## DAY 2 
+
+## 
