@@ -345,4 +345,36 @@ ls -l | cut -d' ' -f9 -s | cut -d. -f1-2 -s
 
 ## DAY 2 
 
-## 
+## awk:   Find and Replace text, database sort/validate/index.
+```
+awk -F: '{print $1}'         displays 1st field delimited by a ":"
+awk '{print $2}'             displays 2nd field, delimited automatically by space
+awk '{print $0}'             displays all string data that matches
+
+awk -F: '($3 == 0) {print $1}' /etc/passwd
+(if field 3 is equal to 0, print field 1)   displays 1st field (username) IF the 3rd field (UID) is equal to "0"
+
+awk '{print $NF}'           displays only the last field of every line
+
+EX: awk -F: 'BEGIN {OFS="@"} {print $1, $3}' fakepasswrd.txt
+OFS = Out Field seperator
+
+cat fakepasswd.txt | awk -F: 'BEGIN {OFS=":"} {print $1,$3}' fakepasswd.txt
+
+####
+EX: cat /etc/passwd | awk -F: '($3 >= 150){print $0}'
+
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+student:x:1001:1001::/home/student:/bin/bash
+
+####
+EX: cat fakepasswd.txt | awk -F: '($3 >= 150){print $1, $6, $3}'
+
+ nobody /nonexistent 65534
+ubuntu /home/ubuntu 1000
+student /home/student 1001
+
+####
+EX:  awk -F: '($7 == "/usr/sbin/nologin"){print $1, $6, $3}' fakepasswd.txt
+
