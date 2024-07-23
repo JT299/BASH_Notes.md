@@ -393,6 +393,29 @@ EX: awk -F: '{print $3}' fakepasswd.txt | sort
 (command before sort, has to be piped)
 
 cat fakepasswd.txt | sort -t : -k 7(seperator by :)
+```
+
+## BASH PRactice DAY2
+```
+EX6:
+Activity:
+
+Write a basic bash script that greps ONLY the IP addresses in the text file provided (named StoryHiddenIPs in the current directory); sort them uniquely by number of times they appear.
+
+A:
+cat StoryHiddenIPs | grep -E -o "([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})" | sort -n | uniq -c | sort -nr
 
 
+Q7:
+Activity:
+
+    Using ONLY the awk command, write a BASH one-liner script that extracts ONLY the names of all the system and user accounts that are not UIDs 0-3.
+    Only display those that use /bin/bash as their default shell.
+    The input file is named $HOME/passwd and is located in the current directory.
+    Output the results to a file called $HOME/SED/names.txt
+
+Tip: awk can use conditional statements, e.g. print only the line in /etc/passwd that has "root" as its first field.
+
+A:
+cat $HOME/passwd | awk -F: '($3 > 3)' | awk -F: '($7 == "/bin/bash"){print $1}' > $HOME/SED/names.txt
 
