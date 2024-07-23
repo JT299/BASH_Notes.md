@@ -280,6 +280,9 @@ The find command uses BOOLEAN "!" to designate that it does not want to find any
 
 find $HOME/1123 -type f ! -name "*~*" -name "*.txt" -exec cp {} $HOME/CUT \;
 
+OR
+
+find $HOME/1123 -name "*.txt" ! -name "*~*" -exec cp {} $HOME/CUT \;
 
 Q2:
 
@@ -299,6 +302,11 @@ Example Output
 A:
 find /var/ -empty -printf "%i %f\n"
 
+
+  *** -empty = searches for empty files
+  *** %i = inode number
+  *** %f = file name
+
 Q3:
 
 
@@ -312,6 +320,10 @@ Tip: The above inode is specific to this CTFd question and might not be in use o
 
 A:
 find / -inum 4026532575 -printf "%f\n"
+
+OR
+
+find / -inum 4026532575 -priintf "%f\n" 2>/dev/null
 
 
 Q4:
