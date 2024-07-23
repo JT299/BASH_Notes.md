@@ -354,7 +354,7 @@ awk '{print $0}'             displays all string data that matches
 awk -F: '($3 == 0) {print $1}' /etc/passwd
 (if field 3 is equal to 0, print field 1)   displays 1st field (username) IF the 3rd field (UID) is equal to "0"
 
-awk '{print $NF}'           displays only the last field of every line
+awk '{print $NF}'           displays only the last field of every lineFind and Replace text, database sort/validate/index.
 
 EX: awk -F: 'BEGIN {OFS="@"} {print $1, $3}' fakepasswrd.txt
 OFS = Out Field seperator
@@ -377,4 +377,22 @@ student /home/student 1001
 
 ####
 EX:  awk -F: '($7 == "/usr/sbin/nologin"){print $1, $6, $3}' fakepasswd.txt
+```
+
+## Sort: Sort text files. Sort, merge, or compare all the lines from the files given (or standard input.)
+```
+sort                sorts content according to position on the ASCII table
+sort -n             sorts content numerically
+sort -u             sorts content uniqely
+sort -nr            sorts content numerically reversed
+sort -t +
+sort -k 2,4         sorts 1st by content in the 2nd column, then by content in the 4th column
+(column = -k // -k 2,4 == sorting by the second and fourth column)
+
+EX: awk -F: '{print $3}' fakepasswd.txt | sort
+(command before sort, has to be piped)
+
+cat fakepasswd.txt | sort -t : -k 7(seperator by :)
+
+
 
