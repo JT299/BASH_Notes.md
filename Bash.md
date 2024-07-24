@@ -360,6 +360,8 @@ awk -F: '($3 == 0) {print $1}' /etc/passwd
 
 awk '{print $NF}'           displays only the last field of every lineFind and Replace text, database sort/validate/index.
 
+awk -v = calling a variable
+
 EX: awk -F: 'BEGIN {OFS="@"} {print $1, $3}' fakepasswrd.txt
 OFS = Out Field seperator
 
@@ -409,7 +411,7 @@ Write a basic bash script that greps ONLY the IP addresses in the text file prov
 A:
 cat StoryHiddenIPs | grep -E -o "([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})" | sort -n | uniq -c | sort -nr
 
-
+########
 Q7:
 Activity:
 
@@ -422,6 +424,10 @@ Tip: awk can use conditional statements, e.g. print only the line in /etc/passwd
 
 A:
 cat $HOME/passwd | awk -F: '($3 > 3)' | awk -F: '($7 == "/bin/bash"){print $1}' > $HOME/SED/names.txt
+
+OR
+
+awk -F '($3 != "0" && $3 != "1" && $3 != "2" && != "3") {print $0}' -/passwd | awk -F: '($7 == "/bin/bash")' | awk -F: '{print $1}' > -/SED/names.txt
 ```
 
 ## Sed: 
@@ -444,6 +450,7 @@ sed -i -e 's/ANCHOVIES//g' pizaster.htm
 sed -i '/^#/d' /etc/hosts.allow
             removes all lines starting with "#" from file /etc/hosts.allow
 
+sed -e == -e means script
 /g = globally
 /s = switch
 ```
@@ -488,6 +495,7 @@ A:
 A=$(openssl passwd -1 -salt bad4u Password1234)
 awk -F: -v "awk_var=$A" 'BEGIN {OFS=":"} {$2=awk_var} {print $0}' $HOME/PASS/shadow.txt
 
+
 ##############
 Q10:
 Using ONLY sed, write all lines from $HOME/passwd into $HOME/PASS/passwd.txt that do not end with either /bin/sh or /bin/false.
@@ -504,8 +512,40 @@ Store, list or extract files in an archive (originally on tape - Tape ARchiver).
 
 tar -czf   ==
 
-z = This option tells tar to read or write archives through gzip, allowing tar to directly operate on several kinds of compressed archives transparently. See section
+z = This option tells tar to read or write archives through gzip, allowing tar to directly operate on several kinds of compressed archives transparently. See section (gzip)
 
 f = tar will use the file archive as the tar archive it performs operations on, rather than tar’s compilation dependent default. See section The
 
-c = 
+c = create 
+```
+## Expressions:
+```
+#!bin/bash
+A=120
+B=20
+expr $A - $B
+```
+
+EX: IF ELSE statement
+```
+#!/bin/bash
+
+contents=$(cat simple.txt)
+if [[ $contents == "tacos" ]]; then
+        echo "are good on tuesdays"
+elif [[ $contents == "costco is amazing" ]]' then
+        echo "and will save you money"
+elif [[ $contents == "chicken bake" ]]; then
+        echo "tasty but will make you fail ht/wt"
+else
+        echo "no tax at commissary"
+fi
+```
+## Variable subitution:
+```
+#!/bin/bash
+A=him
+echo The story of Robert who os $A
+echo I am $A
+echo I will remain $A
+```
