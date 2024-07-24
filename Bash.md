@@ -549,3 +549,104 @@ echo The story of Robert who os $A
 echo I am $A
 echo I will remain $A
 ```
+
+## BASH Practice Question 11: 
+```
+
+
+Activity:
+
+    Using find, find all files under the $HOME directory with a .bin extension ONLY.
+    Once the file(s) and their path(s) have been found, remove the file name from the absolute path output.
+    Ensure there is no trailing / at the end of the directory path when outputting to standard output.
+    You may need to sort the output depending on the command(s) you use.
+
+Tip: For stripping the filename out of the output, there are different ways that this can be accomplished based on what you have learned so far.
+
+    Utilizing -printf options on find.
+    Utilizing awk to manipulate the fields. This may leave the trailing / if you don't take that into account.
+    Utilizing the rev and cut commands creatively.
+
+
+A:
+find $HOME -name "*.bin" 2>/dev/null | rev | cut -d/ -f2- | rev | sort -u
+```
+
+## BASH Practice Question 12: 
+```
+
+
+Activity:
+
+    Write a script which will copy the last entry/line in the passwd-like file specified by the $1 positional parameter
+    Modify the copied line to change:
+        User name to the value specified by $2 positional parameter
+        Used id and group id to the value specified by $3 positional parameter
+        Home directory to a directory matching the user name specified by $2 positional parameter under the /home directory
+        The default shell to `/bin/bash'
+    Append the modified line to the end of the file
+
+Tip: awk provides the simplest method for completing this activity. Refer back to your notes on "09 - BASH Activity" if you are in need of starting point on this activity.
+
+Note: The contents of the passwd-like file will be randomly generated on each submission. It is intended to read the last line once and store it in a variable.
+
+To read more on Positional Parameters, go to the following resource:
+
+    https://www.gnu.org/software/bash/manual/bash.html#Positional-Parameters
+
+To read more on the Passwd file format, go to the following resource:
+
+    man passwd.5
+
+
+A:
+#!/bin/bash
+
+file=$1
+UN=$2
+id=$3
+
+tail -1 $file | awk -F: -v "uname=$UN" -v "ident=$id" 'BEGIN {OFS=":"} {$1=uname}{$3=ident}{$4=ident}{$6="/home/"uname}{$7="/bin/bash"}{print $0}' >> $file
+```
+## Bash Question 13:
+```
+
+    Find all executable files under the following four directories:
+        /bin
+        /sbin
+        /usr/bin
+        /usr/sbin
+    Sort the filenames with absolute path, and get the md5sum of the 10th file from the top of the list.
+
+Tip: In the below example, you can see the different uses of md5sum. While not wrong, the first command is hashing the string output of the the find command. In the second, md5sum is hashing the file contents of the given file, which is what is intended for this activity. You can also tell the second method hashed the file as the file name is listed in the hash output; the first only lists a hyphen indicating a string was hashed. For this activity, to provide md5sum with the 10th file of the sorted output, it is recommended to use Command Subtitution.
+
+A:
+A=$(find /bin /sbin /usr/bin /usr/sbin -type f -executable | sort | head | tail -1)
+md5sum $A | cut -d' ' -f1
+```
+
+## REVIEW:
+```
+grep -v = invert search
+
+tar -czf
+
+-maxdepth
+
+wc = word count
+wc -l = line count
+
+touch -d or -c = change the date of a file
+
+*** Command subsitution / Variable Subsitution ***
+
+sed = swap out things in a file
+
+sort -options
+
+ls -1
+ls -l
+```
+
+
+
