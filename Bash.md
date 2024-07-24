@@ -91,7 +91,11 @@ find / -inum 38 2>/dev/null
     [command] is what you want to execute over results given by the find command.
     {} is a placeholder that is used to hold results given by the find command.
     \; says that for each found result, the [command] is executed. You need to escape the ; here and hence \;.
-```
+
+{} = placeholder
+\; = everything you find 
++ = command is executed only once
+ ```
 
 ## sudo !! = runs last command in root
 
@@ -418,4 +422,90 @@ Tip: awk can use conditional statements, e.g. print only the line in /etc/passwd
 
 A:
 cat $HOME/passwd | awk -F: '($3 > 3)' | awk -F: '($7 == "/bin/bash"){print $1}' > $HOME/SED/names.txt
+```
 
+## Sed: 
+```
+SED is a stream editor. A stream editor is used to perform basic text transformations on an input stream (a file or input from a pipeline).
+While in some ways similar to an editor which permits scripted edits, SED works by making only one pass over the input(s), and is consequently more efficient. But it is SED’s ability to filter text in a pipeline which particularly distinguishes it from other types of editors.
+
+sed '/.dll/{x;p;p;p;x}' -i document.txt
+    directly alters document.txt by adding 3 empty lines before the designated regex (.dll)
+
+sed '/stuff/G;/stuff/G' -i document.txt
+    directly alters document.txt by adding 2 empty lines after the designated regex (stuff)
+
+sed -i -e 's/ANCHOVIES/SAUSAGE/g' pizaster.htm
+            replaces every instance of "ANCHOVIES" with "SAUSAGE" on pizaster.htm
+
+sed -i -e 's/ANCHOVIES//g' pizaster.htm
+            removes every instance of "ANCHOVIES" on pizaster.htm
+
+sed -i '/^#/d' /etc/hosts.allow
+            removes all lines starting with "#" from file /etc/hosts.allow
+
+/g = globally
+/s = switch
+```
+
+## Command Substitution:
+```
+A=$(Command)            A=$(cat /etc/passwd)
+`Command`               `cat /etc/passwd`
+```
+
+## Aliases:
+```
+alias rm='rm -i'                    creates alias to confirm removal
+alias vim='nano'                    creates an alias for `nano'
+alias gedit='nano'                  "
+alias vi='nano'                     "
+alias x='cat etc/passwd'            creates an alias for Command: cat/etc/passwd
+alias y=$(cat /etc/shadow)          " cat /etc/shadow
+alias ls='ls -al'                   creates an alias causing 'ls -al' to be run when 'ls' is used
+\ls                                 negates the alias function, so we can run 'ls' without '-al'
+alias -p                            view all aliases set (local and global)
+unalias ls                          unaliases ls so it no longer resolves to 'ls -al'
+```
+## BASH PRACTICE:
+```
+Q8:
+
+    Find all dmesg kernel messages that contain CPU or BIOS (uppercase) in the string, but not usable or reserved (case-insensitive)
+    Print only the msg itself, omitting the bracketed numerical expressions ie: [1.132775]
+
+A:
+dmesg | grep -E 'CPU|BIOS' | grep -E -i -v 'usable|reserved' | cut -d] -f2-
+
+#################
+Q9:
+
+    Write a Bash script using "Command Substitution" to replace all passwords, using openssl, from the file $HOME/PASS/shadow.txt with the MD5 encrypted password: Password1234, with salt: bad4u
+    Output of this command should go to the screen/standard output.
+    You are not limited to a particular command, however you must use openssl. Type man openssl passwd for more information.
+
+A:
+A=$(openssl passwd -1 -salt bad4u Password1234)
+awk -F: -v "awk_var=$A" 'BEGIN {OFS=":"} {$2=awk_var} {print $0}' $HOME/PASS/shadow.txt
+
+##############
+Q10:
+Using ONLY sed, write all lines from $HOME/passwd into $HOME/PASS/passwd.txt that do not end with either /bin/sh or /bin/false.
+
+A:
+sed -e '/\/bin\/false/d' -e '/\/bin\/sh/d' $HOME/passwd > $HOME/PASS/passwd.txt
+```
+
+## Day 3:
+
+## tar
+```
+Store, list or extract files in an archive (originally on tape - Tape ARchiver).
+
+tar -czf   ==
+
+z = This option tells tar to read or write archives through gzip, allowing tar to directly operate on several kinds of compressed archives transparently. See section
+
+f = tar will use the file archive as the tar archive it performs operations on, rather than tar’s compilation dependent default. See section The
+
+c = 
