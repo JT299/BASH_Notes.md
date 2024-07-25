@@ -705,6 +705,11 @@ function q1()
   outfile=$2
   sed -e 's/cat/dog/' -e 's/Navy/Army/' $1 > $2
 }
+
+OR
+
+sed -e '/s/cat/dog/g' -e 's/Navy/Army/g' $1 > $2
+
 ```
 ## Question 2: Create a script that will print to standard output all user names from the /etc/passwd file.
 ```
@@ -717,8 +722,12 @@ function q1()
   #none
   awk -F: '{print $1}' /etc/passwd
 }
-```
 
+OR
+
+cut -d':' -f1 /etc/passwd
+
+```
 ## Question 3: 
 ```
 Q:
@@ -733,10 +742,12 @@ function q1()
   #Valid Variables are:
   filename=$1
   awk -F: '{print $3, $0}' $1 | sort -n | cut -d' ' -f2 | cut -d: -f1
-
 }
-```
+OR
 
+sort -n -t: -k3 $filename | cut -d':' -f1
+
+```
 ## Question 4:
 ```
 Q:
@@ -753,6 +764,7 @@ function q1()
   dirname=$1
   ls -1 $1 | wc -l
 }
+ls -1 = ls -"one"
 ```
 ## Question 5: 
 ```
@@ -786,8 +798,12 @@ function q1()
   filedate=$2
   touch -t $2'1730' $1
 }
-```
 
+OR
+
+touch -t "$2"1730 $1
+
+```
 ## Question 7:
 ```
 Q:
@@ -816,6 +832,23 @@ function q1()
         echo "Error"
 fi 
 }
+
+OR
+
+function q1()
+{
+  #Valid Variables are:
+  fname=$1
+  c=$(cat $1)
+  if [[ $c -lt 10 ]]; then
+        echo "single digit"
+  elif [[ $c -lt 100 ]]; then
+        echo "double digit"
+  elif [[ $c -lt 1000 ]]; then
+        echo "triple digit"
+  else 
+        echo "Error"
+
 ```
 ## Question 8:
 ```
@@ -831,6 +864,10 @@ function q1()
   match=$3
   cat $1 | grep -E -v $3 > $2
 }
+OR
+
+cat $1 | grep -v $3 > $2
+
 ```
 ## Question 9:
 ```
@@ -844,6 +881,9 @@ function q1()
   procname=$1
   pkill $1
 }
+OR
+
+killall $1 (nukes the process and all other processes)
 ```
 ## Question 10:
 ```
@@ -862,6 +902,3 @@ function q1()
   find $1 -type f -mtime -1 | sort 
 }
 ```
-
-
-
