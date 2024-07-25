@@ -625,6 +625,47 @@ A=$(find /bin /sbin /usr/bin /usr/sbin -type f -executable | sort | head | tail 
 md5sum $A | cut -d' ' -f1
 ```
 
+## Bash Question 14:
+```
+Activity:
+
+Using any BASH command complete the following:
+
+    Sort the /etc/passwd file numerically by the GID field.
+    For the 10th entry in the sorted passwd file, get an md5 hash of that entry’s home directory.
+    Output ONLY the MD5 hash of the directory's name to standard output.
+
+Note: Since we are dealing with a directory, which is both a string and an absolute path, it matters how we get the md5sum of our intended output.
+
+[chris@localhost ~]$ md5sum /home/chris
+md5sum: /home/chris: Is a directory
+
+In the above example, an error is returned because we are applying the directory /home/chris as the first argument of the above command. Since /home/chris is a directory, likely with additional files within it, we cannot assign this as an argument. However, we have the string /home/chris as STDIN for a command, as seen in the below example.
+
+A:
+A=$(cat /etc/passwd | cut -d: -f4- | sort -n | head | tail -1 | cut -d: -f3)
+echo $A | md5sum | cut -d' ' -f1
+```
+
+## Bash Question 15:
+```
+
+    Write a script which will find and hash the contents 3 levels deep from each of these directories: /bin /etc /var
+    Your script should:
+        Exclude named pipes. These can break your script.
+        Redirect STDOUT and STDERR to separate files.
+        Determine the count of files hashed in the file with hashes.
+        Determine the count of unsuccessfully hashed directories.
+        Have both counts output to the screen with an appropriate title for each count.
+
+A:
+find /bin /etc /var -maxdepth 3 ! -type p -exec md5sum {} 1>s.txt 2>u.txt \;
+A=$(wc -l < s.txt)
+B=$(grep -c "Is a directory" < u.txt)
+echo "Successfully Hashed Files: $A"
+echo "Unsuccessfully Hashed Directories: $B"
+```
+
 ## REVIEW:
 ```
 grep -v = invert search
