@@ -688,6 +688,180 @@ sort -options
 ls -1
 ls -l
 ```
+## Bash Practice Test 
+
+## Question 1: Create a script that will perform the following actions:
+```
+    Replace every instance of 'cat' in "infile" with 'dog'.
+    Replace every instance of 'Navy' in "infile" with 'Army'.
+    Replacements are case-sensitive.
+    Write the output to the file specifed by the variable 'outfile'.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  infile=$1
+  outfile=$2
+  sed -e 's/cat/dog/' -e 's/Navy/Army/' $1 > $2
+}
+```
+## Question 2: Create a script that will print to standard output all user names from the /etc/passwd file.
+```
+Q: Create a script that will print to standard output all user names from the /etc/passwd file.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  #none
+  awk -F: '{print $1}' /etc/passwd
+}
+```
+
+## Question 3: 
+```
+Q:
+Create a script that will perform the following actions:
+
+    Print to standard output all usernames from the file path specified by the parameter filename sorted ascending numerically by user id.
+    The file will be in the format of /etc/passwd
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  filename=$1
+  awk -F: '{print $3, $0}' $1 | sort -n | cut -d' ' -f2 | cut -d: -f1
+
+}
+```
+
+## Question 4:
+```
+Q:
+Create a script that will perform the following actions:
+
+    Print to standard output the total number of files in the directory specified by dirname.
+    If the directory does not exist, print 'Invalid Directory'
+    The count excludes the '.' and '..' pseudo-directories.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  dirname=$1
+  ls -1 $1 | wc -l
+}
+```
+## Question 5: 
+```
+Q:
+Create a script that will perform the following actions:
+
+    Delete all files contained in the directory specified by dirdel
+    Also delete the directory specified by dirdel
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  dirdel=$1
+  rm -rf $1
+}
+```
+## Question 6:
+```
+Q:
+Create a script that will perform the following actions:
+
+    Create a file specified by the name newfile.
+    Set the file modified date to the value specified in filedate and time to '1730'. NOTE: filedate contains only a valid date in YYYYMMDD format, not a time.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  newfile=$1
+  filedate=$2
+  touch -t $2'1730' $1
+}
+```
+
+## Question 7:
+```
+Q:
+Read the file specified by fname and perform an action based on the contents of the file:
+
+    If contents are 0 to 9, print "single digit" to standard output.
+    If contents are 10 to 99, print "double digit" to standard output.
+    If contents are 100 to 999, print "triple digit" to standard output.
+    Otherwise, print "Error" to standard output.
+
+NOTE: There will only be one line of content in the file specified by fname
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  fname=$1
+  c=$(cat $1)
+  if [[ $c -le 9 ]]; then
+        echo "single digit"
+  elif [[ $c -le 99 ]]; then
+        echo "double digit"
+  elif [[ $c -le 999 ]]; then
+        echo "triple digit"
+  else 
+        echo "Error"
+fi 
+}
+```
+## Question 8:
+```
+Q:
+Copy all lines from the file specified by src variable to the file specified by dst variable which DO NOT contain the text specified by match variable.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  src=$1
+  dst=$2
+  match=$3
+  cat $1 | grep -E -v $3 > $2
+}
+```
+## Question 9:
+```
+Q:
+Terminate the process that has the randomly assigned name specified by procname variable. procname does not contain path information.
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  procname=$1
+  pkill $1
+}
+```
+## Question 10:
+```
+Q:
+Create a sorted full-path list of all files in the directory dirpath that were modified within the previous day. Directories should not be included in the output. Print the list to the screen, one item per line.
+
+NOTE: The full paths to files should be in your output. (i.e. /etc/passwd would be included)
+
+NOTE: Directory entries should not be included. (i.e. /etc would NOT be included)
+
+A:
+function q1()
+{
+  #Valid Variables are:
+  dirpath=$1
+  find $1 -type f -mtime -1 | sort 
+}
+```
 
 
 
