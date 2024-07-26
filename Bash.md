@@ -710,6 +710,12 @@ OR
 
 sed -e '/s/cat/dog/g' -e 's/Navy/Army/g' $1 > $2
 
+OR
+
+####
+  filename=$1
+  egrep -v '^#|^$' $filename
+####
 ```
 ## Question 2: Create a script that will print to standard output all user names from the /etc/passwd file.
 ```
@@ -727,6 +733,13 @@ OR
 
 cut -d':' -f1 /etc/passwd
 
+OR
+
+####
+logs=$1
+  archive=$2
+  find $logs -name '*.log' -exec tar -czf  $archive {} +
+####
 ```
 ## Question 3: 
 ```
@@ -747,6 +760,13 @@ OR
 
 sort -n -t: -k3 $filename | cut -d':' -f1
 
+OR
+
+####
+  searchdir=$1
+  output=$2
+  grep -ir 'CRITICAL' $searchdir | cut -d: -f1 > $output
+####
 ```
 ## Question 4:
 ```
@@ -765,6 +785,13 @@ function q1()
   ls -1 $1 | wc -l
 }
 ls -1 = ls -"one"
+
+OR
+
+####
+  dirlist=$1
+  find $dirlist -type f -maxdepth 1 | wc -l
+####
 ```
 ## Question 5: 
 ```
@@ -781,6 +808,13 @@ function q1()
   dirdel=$1
   rm -rf $1
 }
+
+OR
+
+####
+dirdel=$1
+  rm -r $dirdel/*
+####
 ```
 ## Question 6:
 ```
@@ -803,6 +837,12 @@ OR
 
 touch -t "$2"1730 $1
 
+OR
+
+####
+  newfile=$1
+  touch -t 202406140830 $newfile
+####
 ```
 ## Question 7:
 ```
@@ -849,6 +889,22 @@ function q1()
   else 
         echo "Error"
 
+OR
+
+####
+filename=$1
+  A=$(cat "$filename")
+ 
+  if [[ "$A" == "abc" ]]; then
+    echo 123
+  elif [[ "$A" == "def" ]]; then
+    echo 789
+  elif [[ "$A" == "xyz" ]]; then
+    echo 000
+  else
+    echo Error
+  fi
+####
 ```
 ## Question 8:
 ```
@@ -868,6 +924,13 @@ OR
 
 cat $1 | grep -v $3 > $2
 
+OR
+####
+  src=$1
+  dst=$2
+  match=$3
+  grep $match $src > $dst
+####
 ```
 ## Question 9:
 ```
@@ -884,6 +947,12 @@ function q1()
 OR
 
 killall $1 (nukes the process and all other processes)
+
+OR
+####
+  var=$1
+  pkill $1
+####
 ```
 ## Question 10:
 ```
@@ -901,4 +970,10 @@ function q1()
   dirpath=$1
   find $1 -type f -mtime -1 | sort 
 }
+
+OR
+####
+  dirpath=$1
+  find $1 -type f -mmin -60 | sort
+####
 ```
