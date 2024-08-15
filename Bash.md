@@ -977,3 +977,7 @@ OR
   find $1 -type f -mmin -60 | sort
 ####
 ```
+## XML = https://www.w3schools.com/xml/xpath_syntax.asp
+//port/state[@state='open']/ancestor::port/@portid
+
+//port/state[@state='open']/ancestor::host/address/@addr
